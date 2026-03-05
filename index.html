@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natural Disaster Simulator</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0c1224;
+color:white;
+text-align:center;
+}
+
+header{
+font-size:40px;
+padding:30px;
+background:#121a3a;
+}
+
+.controls{
+padding:20px;
+}
+
+button{
+padding:12px 22px;
+margin:10px;
+font-size:16px;
+border:none;
+border-radius:8px;
+background:#2c3c8f;
+color:white;
+cursor:pointer;
+}
+
+button:hover{
+background:#4d63ff;
+}
+
+.simulation{
+height:300px;
+margin-top:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+position:relative;
+overflow:hidden;
+}
+
+/* VOLCANO */
+
+.volcano{
+width:0;
+height:0;
+border-left:80px solid transparent;
+border-right:80px solid transparent;
+border-bottom:120px solid brown;
+position:relative;
+}
+
+.lava{
+width:15px;
+height:15px;
+background:red;
+border-radius:50%;
+position:absolute;
+top:-20px;
+animation:eruption 1s infinite;
+}
+
+@keyframes eruption{
+0%{transform:translateY(0)}
+100%{transform:translateY(-120px)}
+}
+
+/* TSUNAMI */
+
+.wave{
+position:absolute;
+width:200%;
+height:100px;
+background:#2aa3ff;
+bottom:0;
+animation:waveMove 3s linear infinite;
+}
+
+@keyframes waveMove{
+0%{transform:translateX(0)}
+100%{transform:translateX(-50%)}
+}
+
+/* HURRICANE */
+
+.hurricane{
+width:120px;
+height:120px;
+border-radius:50%;
+border:10px solid rgba(255,255,255,0.2);
+border-top:10px solid white;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+100%{transform:rotate(360deg)}
+}
+
+/* MAP */
+
+.map{
+width:500px;
+height:250px;
+background:linear-gradient(#003,#0a4);
+position:relative;
+border-radius:10px;
+}
+
+.marker{
+width:15px;
+height:15px;
+background:red;
+border-radius:50%;
+position:absolute;
+cursor:pointer;
+}
+
+/* SEVERITY */
+
+.meter{
+width:300px;
+height:25px;
+background:#333;
+border-radius:20px;
+margin:20px auto;
+overflow:hidden;
+}
+
+.level{
+height:100%;
+width:0%;
+background:red;
+transition:1s;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+🌍 Natural Disaster Simulator
+</header>
+
+<div class="controls">
+
+<button onclick="volcano()">🌋 Volcano</button>
+<button onclick="tsunami()">🌊 Tsunami</button>
+<button onclick="hurricane()">🌪 Hurricane</button>
+<button onclick="showMap()">🌍 World Map</button>
+
+</div>
+
+<div class="simulation" id="sim"></div>
+
+<div class="meter">
+<div class="level" id="severity"></div>
+</div>
+
+<script>
+
+function setSeverity(level){
+document.getElementById("severity").style.width=level+"%";
+}
+
+function volcano(){
+document.getElementById("sim").innerHTML=
+`<div class="volcano">
+<div class="lava"></div>
+</div>`;
+setSeverity(70);
+}
+
+function tsunami(){
+document.getElementById("sim").innerHTML=
+`<div class="wave"></div>`;
+setSeverity(85);
+}
+
+function hurricane(){
+document.getElementById("sim").innerHTML=
+`<div class="hurricane"></div>`;
+setSeverity(90);
+}
+
+function showMap(){
+document.getElementById("sim").innerHTML=
+`<div class="map">
+<div class="marker" style="top:60px;left:150px" onclick="alert('Earthquake Zone')"></div>
+<div class="marker" style="top:120px;left:320px" onclick="alert('Tsunami Zone')"></div>
+</div>`;
+setSeverity(40);
+}
+
+</script>
+
+</body>
+</html>
